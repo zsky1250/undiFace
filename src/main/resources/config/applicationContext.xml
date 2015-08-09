@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+						http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+						http://www.springframework.org/schema/data/jpa"
+	default-lazy-init="true">
+
+	<!-- 扫描注解Bean -->
+	<context:component-scan base-package="com.udf">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.web.bind.annotation.RestController" />
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+	</context:component-scan>
+
+	<bean id="Jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+		<property name="classesToBeBound">
+			<list>
+				<value>com.udf.core.web.menu.bean.Menu</value>
+				<value>com.udf.core.web.menu.bean.MenuItem</value>
+			</list>
+		</property>
+	</bean>
+
+<!--	<bean id="MenuConfigurer" class="com.udf.core.web.menu.service.MenuConfigurer">
+		<constructor-arg>
+			<value>classpath:config/menu.xml</value>
+		</constructor-arg>
+	</bean>-->
+
+
+	<!--开启springAOP,默认用JDK动态代理，面向接口 -->
+	<!--<aop:aspectj-autoproxy expose-proxy="true" />-->
+
+	<!--	内容协商：
+	参考：http://spring.io/blog/2013/05/11/content-negotiation-using-spring-mvc
+		 http://spring.io/blog/2013/06/03/content-negotiation-using-views-->
+	<bean id="cnManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<!-- 是否开启扩展名至mimeType的映射,即 /user.json => application/json -->
+		<property name="favorPathExtension" value="true"/>
+		<!-- 是否开启 参数==>mimeType，即/userinfo/123?format=json-->
+		<property name= "favorParameter" value= "false" />
+		<!-- 参数的名称 -->
+		<property name= "parameterName" value= "format"/>
+		<!-- 是否忽略Accept Header
+		(一般忽略，因为各种设备自动给出的AcceptHeader不靠谱。如果单纯是浏览器环境，REST服务，可以Ajax自己设置Accept还行) -->
+		<property name="ignoreAcceptHeader" value="true" />
+		<!-- 默认的contentType。(不明确给出时用)-->
+		<property name="defaultContentType" value="text/html" />
+		<!-- 是否开启 java自带的contentType映射自动转换。(如：自动帮你将json->application/json) -->
+		<property name="useJaf" value="false"/>
+
+		<property name="mediaTypes">
+			<!--favorPathExtension, favorParameter是true时起作用.仅用JAF后，手动转换-->
+			<map>
+				<entry key="html" value="text/html" />
+				<entry key="json" value="application/json" />
+				<entry key="xml" value="application/xml" />
+			</map>
+		</property>
+	</bean>
+
+</beans>
