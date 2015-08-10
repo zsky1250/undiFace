@@ -4,18 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
 <link href="${res}/css/style.css" rel="stylesheet" type="text/css" />
-<script language="JavaScript" src="${res}/jquery-1.11.1.js"></script>
-<script type="text/javascript">
-$(function(){	
-	//顶部导航切换
-	$(".nav li a").click(function(){
-		$(".nav li a.selected").removeClass("selected")
-		$(this).addClass("selected");
-	})	
-})	
-</script>
-
-
+<script language="JavaScript" src="${res}/js/jquery-1.11.1.js"></script>
 </head>
 
 <body style="background:url(${res}/images/topbg.gif) repeat-x;">
@@ -26,44 +15,53 @@ $(function(){
         <a href="main.html" target="_parent"><img src="images/logo.png" title="系统首页"/></a>
     </div>
 
-    <ul class="nav">
-        <li><a href="default.html" target="rightFrame" class="selected">
-
-            <h2>工作台</h2></a></li>
-        <li><a href="imgtable.html" target="rightFrame">
-
-            <h2>模型管理</h2></a></li>
-        <li><a href="imglist.html" target="rightFrame">
-
-            <h2>模块设计</h2></a></li>
-        <li><a href="tools.html" target="rightFrame">
-
-            <h2>常用工具</h2></a></li>
-        <li><a href="computer.html" target="rightFrame">
-
-            <h2>文件管理</h2></a></li>
-        <li><a href="tab.html" target="rightFrame">
-
-            <h2>系统设置</h2></a></li>
+    <ul id="top-menu" class="nav">
+        <li><a href="default.html" target="rightFrame" class="selected">工作台</a></li>
+        <li><a href="imgtable.html" target="rightFrame">模型管理</a></li>
+        <li><a href="imglist.html" target="rightFrame">模块设计</a></li>
+        <li><a href="tools.html" target="rightFrame">常用工具</a></li>
+        <li><a href="computer.html" target="rightFrame">文件管理</a></li>
+        <li><a href="tab.html" target="rightFrame">系统设置</a></li>
     </ul>
 
     <div class="topright">
         <ul>
-            <li><span><img src="images/help.png" title="帮助" class="helpimg"/></span><a href="#">帮助</a></li>
+            <li><span><img src="${res}/images/help.png" title="帮助" class="helpimg"/></span><a href="#">帮助</a></li>
             <li><a href="#">关于</a></li>
             <li><a href="login.html" target="_parent">退出</a></li>
         </ul>
+    </div>
 
-        <div class="user">
-            <span>admin</span>
-            <i>消息</i>
-            <b>5</b>
-        </div>
+    <div class="user">
+        <span>1中队 2小队 xxx</span>
+        <i>消息</i>
+        <b>5</b>
     </div>
 </div>
 
 
-<div class="sub-menu"></div>
+<div id="sub-menu" class="sub-menu">
+    <ul>
+        <li  class="selected"><a href="#">部门管理</a></li>
+        <li><a href="#">车辆管理</a></li>
+        <li><a href="#">XXX管理</a></li>
+    </ul>
+</div>
 
+
+<script type="text/javascript">
+    $(function(){
+        //顶部导航切换
+        $("#top-menu li a").click(function(){
+            $("#top-menu li a.selected").removeClass("selected")
+            $(this).addClass("selected");
+        })
+        //次级导航切换
+        $("#sub-menu li a").click(function(){
+            $("#sub-menu li.selected").removeClass("selected")
+            $(this).parent("li").addClass("selected");
+        })
+    })
+</script>
 </body>
 </html>

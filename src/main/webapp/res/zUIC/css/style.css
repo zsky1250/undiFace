@@ -49,30 +49,69 @@ h2{font-weight:normal;}
 
 
 /*top.html*/
-.top-menu{height:88px;width:100%}
-.sub-menu{height:32px;width:100%;background: #3069BB;border-bottom: 1px solid #1F3D74}
-.topleft{height:88px;background:url(../images/topleft.jpg) no-repeat;float:left; width:300px;}
+.top-menu{height:75px;width:100%}
+
+.topleft{height:75px;background:url(../images/topleft.jpg) no-repeat;float:left; width:300px;}
 .topleft img{margin-top:12px;margin-left:10px;}
-.topright{height:40px;background:url(../images/topright.jpg) no-repeat right;float:right;}
-.nav{float:right;margin-top:50px}
-.nav li{float:left;width:100px;height:37px; text-align:center;border: 1px solid #000000}
-.nav li a{display:block;width:100px;height:37px;-moz-transition: none; transition: background-color 0.3s linear; -moz-transition: background-color 0.3s linear; -webkit-transition: background-color 0.3s linear; -o-transition: background-color 0.3s linear; }
-.nav li a.selected{background:url(../images/navbg.png) no-repeat;}
-.nav li a:hover{display:block;background:#000;color:#fff;background: none repeat scroll 0% 0% rgb(43, 127, 181);}
-.nav li img{margin-top:10px;}
-.nav li a{display:block;}
-.nav a h2{font-size:14px;color:#d6e8f1;}
-.nav a:hover h2{color:#fff;}
-.topright ul{padding-top:15px; float:right; padding-right:12px;}
+
+.nav{float:left;margin-top:45px;width:886px;background: url(../images/top_nav_bg.jpg)}
+.nav li{float:left;width:128px;height:30px; text-align:center;margin-left:-4px;}
+.nav li a{
+    display:block;width:128px;height:30px ;font-size:14px;color:#000;padding-top:5px;padding-bottom: -5px;
+}
+.nav li a.selected,.nav li a.selected:hover{background:url(../images/top_nav_selected.png) no-repeat;color:#d6e8f1;}
+.nav li a:hover{display:block;color:#056dae;}
+
+.topright{height:75px;background:url(../images/topright.jpg) no-repeat right;
+    position: absolute;top:0px;right:0px;}
+.topright ul{padding:5px 0 5px 0; float:right; padding-right:12px;margin-right:5px;border-radius:0px 0px 7px 7px;border:1px solid #f5f5f5;border-top:none;}
 .topright ul li{float:left; padding-left:9px; padding-right:9px; background:url(../images/line.gif) no-repeat right;}
 .topright ul li:last-child{background:none;}
 .topright ul li a{font-size:13px; color:#e9f2f7;}
 .topright ul li a:hover{color:#fff;}
-.topright ul li span{margin-top:2px;float:left;padding-right:3px;}
-.user{height:30px;background:url(../images/ub1.png) repeat-x;clear:both;margin-top:10px;float:right; margin-right:12px;border-radius:30px; behavior:url(js/pie.htc); white-space:nowrap;position:relative;}
+.topright ul li span{float:left;padding-right:3px;}
+.user{
+    height:30px;background:url(../images/ub1.png) repeat-x;
+    margin-top:5px;border-radius:30px;
+    behavior:url(js/pie.htc);
+    white-space:nowrap;
+    position:absolute;
+    top:0px;
+    left:310px;
+}
 .user span{display:inline-block;padding-right:10px; background:url(../images/user.png) no-repeat 15px 10px; line-height:30px; font-size:14px;color:#b8ceda; padding-left:20px; padding-left:35px;}
 .user b{display:inline-block;width:20px;height:18px; background:url(../images/msg.png);text-align:center; font-weight:normal; color:#fff;font-size:14px;margin-right:13px; margin-top:7px; line-height:18px;}
-.user i{display:inline-block;margin-right:5px;font-style:normal;line-height:30px; font-size:14px;color:#b8ceda;}
+.user i{display:inline-block;margin-right:5px;font-style:normal;line-height:30px; font-size:14px;color:#ffffff;}
+
+.sub-menu{height:25px;width:100%;background:url(../images/sub-nav-bg.jpg) repeat-x;border-bottom: 1px solid #1F3D74}
+.sub-menu ul{
+    float:left;
+    list-style: none;
+}
+.sub-menu ul li{
+    float:left; padding-left:9px; padding-right:9px; background:url(../images/line.gif) no-repeat right;
+    width: 100px;
+}
+.sub-menu ul li a{
+    display: block;
+    width: 100%;height: 100%;
+    padding: 3px 0 3px 0;
+    font-size:13px;
+    color:#e9f2f7;
+    text-align:center;
+}
+.sub-menu ul li a:hover{color:#2a3e93 ;cursor: hand;}
+.sub-menu ul li.selected{
+   background: #f0f9fd;
+   background:-moz-linear-gradient(top,#fff,#f0f9fd);/*Mozilla*/
+   background:-webkit-linear-gradient(top,#fff,#f0f9fd);/*new gradient for Webkit*/
+   background:-o-linear-gradient(top,#fff,#f0f9fd); /*Opera11*/
+   border:1px solid #b8ceda;
+}
+.sub-menu ul li.selected a{
+    color:#3c95c8;
+}
+.sub-menu ul li.selected a:hover{color:#3c95c8;}
 
 /*left.html*/
 .lefttop{background:url(../images/lefttop.gif) repeat-x;height:40px;color:#fff;font-size:14px;line-height:40px;}
