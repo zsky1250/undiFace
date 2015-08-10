@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by ��δȻ on 2015/8/8.
+ * Created by ��δȻ on 2015/8/8.
  */
 @Controller
 public class pageController {
@@ -26,6 +26,7 @@ public class pageController {
         model.addAttribute("res",basePath+"/res/zUIC");
 //      return "/zUIC/"+url;
     }
+
 
 
 }

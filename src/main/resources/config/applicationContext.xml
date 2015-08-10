@@ -62,9 +62,9 @@
 		<property name="mediaTypes">
 			<!--favorPathExtension, favorParameter是true时起作用.仅用JAF后，手动转换-->
 			<map>
-				<entry key="html" value="text/html" />
-				<entry key="json" value="application/json" />
-				<entry key="xml" value="application/xml" />
+				<entry key="html" value="text/html;;charset=utf-8" />
+				<entry key="json" value="application/json;charset=utf-8" />
+				<entry key="xml" value="application/xml;;charset=utf-8" />
 			</map>
 		</property>
 	</bean>

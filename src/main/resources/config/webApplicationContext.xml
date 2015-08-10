@@ -113,14 +113,14 @@
         <property name="location" value="classpath:config/freemarker.properties"/>
     </bean>
 
-    <!-- JSON view -->
-    <!--<bean id="jsonViewResolver" class="com.udf.core.web.mvc.json.MappingJackson2ViewResolver">-->
-    <!--<property name="view">-->
-    <!--<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">-->
-    <!--<property name="prettyPrint" value="true"/>-->
-    <!--</bean>-->
-    <!--</property>-->
-    <!--</bean>-->
+     <!--JSON view -->
+    <bean id="jsonViewResolver" class="com.udf.core.utility.mvc.json.MappingJackson2ViewResolver">
+        <property name="view">
+            <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+                <property name="prettyPrint" value="true"/>
+            </bean>
+        </property>
+    </bean>
 </beans>
 
 

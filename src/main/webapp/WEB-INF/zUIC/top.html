@@ -16,12 +16,12 @@
     </div>
 
     <ul id="top-menu" class="nav">
-        <li><a href="default.html" target="rightFrame" class="selected">工作台</a></li>
-        <li><a href="imgtable.html" target="rightFrame">模型管理</a></li>
-        <li><a href="imglist.html" target="rightFrame">模块设计</a></li>
-        <li><a href="tools.html" target="rightFrame">常用工具</a></li>
-        <li><a href="computer.html" target="rightFrame">文件管理</a></li>
-        <li><a href="tab.html" target="rightFrame">系统设置</a></li>
+        <li><a href="default.html" class="selected">工作台</a></li>
+        <li><a href="aaa" >模型管理</a></li>
+        <li><a href="bbb">模块设计</a></li>
+        <li><a href="tools.html" >常用工具</a></li>
+        <li><a href="computer.html" >文件管理</a></li>
+        <li><a href="tab.html" >系统设置</a></li>
     </ul>
 
     <div class="topright">
@@ -42,24 +42,41 @@
 
 <div id="sub-menu" class="sub-menu">
     <ul>
-        <li  class="selected"><a href="#">部门管理</a></li>
-        <li><a href="#">车辆管理</a></li>
-        <li><a href="#">XXX管理</a></li>
+        <li class="selected"><a href="#">部门管理</a></li>
+        <!--<li><a href="#">车辆管理</a></li>-->
+        <!--<li><a href="#">XXX管理</a></li>-->
     </ul>
 </div>
 
 
 <script type="text/javascript">
     $(function(){
+        //变量定义
+        var subMenuUrl = "subMenuList.json";
         //顶部导航切换
-        $("#top-menu li a").click(function(){
-            $("#top-menu li a.selected").removeClass("selected")
-            $(this).addClass("selected");
-        })
-        //次级导航切换
-        $("#sub-menu li a").click(function(){
-            $("#sub-menu li.selected").removeClass("selected")
-            $(this).parent("li").addClass("selected");
+        $("#top-menu li a").click(function(e){
+            e.preventDefault();
+            var that = $(this);
+            var menuID = $(this).attr("href");
+            var ajaxResult = $.ajax(subMenuUrl, {
+                type: 'POST',
+                data: {'menuID': menuID},
+            }).then(function( data, textStatus, jqXHR){
+                $("#top-menu li a.selected").removeClass("selected");
+                that.addClass("selected");
+                var subMenulist = [];
+                $.each(data.subMenuList,function(index,element){
+                   subMenulist[index]='<li><a href="'+element.href+'" target="leftFrame">'+element.text+'</a></li>';
+                });
+                $("#sub-menu").children('ul').html(subMenulist.join(''));
+                //注册次级导航click-切换
+                $("#sub-menu li a").click(function(){
+                    $("#sub-menu li.selected").removeClass("selected")
+                    $(this).parent("li").addClass("selected");
+                })
+            },function(jqXHR, textStatus, errorThrown){
+                alert("读取子菜单失败，原因：\n"+jqXHR.responseText);
+            });
         })
     })
 </script>
