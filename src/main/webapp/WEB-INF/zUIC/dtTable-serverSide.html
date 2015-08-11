@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+
+<link href="${res}/css/style.css" rel="stylesheet" type="text/css" />
+<link href="${res}/../plugins/DataTables-1.10.7/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="${res}/js/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="${res}/../plugins/DataTables-1.10.7/js/jquery.dataTables.min.js"></script>
+
+
+</head>
+
+
+<body>
+
+    <div class="rightinfo">
+        <div id="dt-panel" >
+            <table class="content_title">
+                <tr><td>内容显示区</td></tr>
+                <tr><td><input type="button" id="load1" value="sql1"/></td><td><input type="button" id="load2" value="sql2"></td></tr>
+            </table>
+            <table id="dt-table" class="cell-border compact hover nowrap stripe"></table>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(function() {
+            var tableDefaults = {
+                processing : true,//显示处理中的标签
+                serverSide : true,//使用服务器端交互模式
+                autoWidth: false,
+                //scrollY : "330",//table的高度
+                scrollCollapse : false,//如果行数少于标准的条数，是否缩短表格高度
+                scrollX:"100%",
+                dom: 't<"almInfo"ip>',
+                searching : false,//是否开启客户端查询，纯js过滤，我们可以考虑服务器端过滤。
+                paging: true,//是否开启分页插件
+                pagingType: "full_numbers",//分页工具条形式。simple:上条+下条 simple_numbers:上条+数字+下条 full:首页+上条+下条+末页 full_numbers:以上全部
+                lengthChange: false,//用户可不可以自己修改显示的条数
+                lengthMenu : [10],//每页显示多少条
+                ordering:  false,//开启排序功能
+                //table数据对应，（每一列如何定义，如何和后台传回的数据绑定）
+                columns : [
+
+                ]
+                language : {
+                    processing:   "载入数据...",
+                    search   :   "查询",
+                    lengthMenu:   "显示 _MENU_ 项结果",
+                    zeroRecords:  "没有匹配结果",
+                    info:         "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                    infoEmpty:    "显示第 0 至 0 项结果，共 0 项",
+                    infoFiltered: "(查询结果： _MAX_ 项)",
+                    infoPostFix:  "",
+                    sUrl:          "",
+                    emptyTable:     "表中数据为空",
+                    loadingRecords: "载入中...",
+                    sInfoThousands:  ",",
+                    decimal       :  ",",
+                    paginate: {
+                        "first":    "首页",
+                        "previous": "上页",
+                        "next":     "下页",
+                        "last":     "末页"
+                    },
+                    aria: {
+                        "sortAscending":  ": 以升序排列此列",
+                        "sortDescending": ": 以降序排列此列"
+                    }
+                },
+                //ajax交互写法，目前这个插件不能动态增加列，所以不用这种方式。
+                 ajax : {
+                 "url" : "/DTAction",
+                 "type" : "POST",
+                 //"contentType":"application/json;charset=utf8",
+                 //"dataSrc": "content",
+                 "data" : function(d) {
+                 var col_index = d.order[0].column;
+                 var ordername = d.columns[col_index].data
+                 var orderdir = d.order[0].dir
+                 var rdata = {};
+                 rdata.page = d.start / d.length;
+                 rdata.size = d.length;
+                 rdata.sort = ordername + "," + orderdir;
+                 rdata.draw = d.draw;
+                 return rdata;
+                 }
+                 }
+                // destroy:true//如果针对同一个jq对象，能否进行多次初始化（销毁再重建）,默认false。
+            };
+
+
+            bindTableEvent($('#dt-table'));
+
+
+            /**
+             * 将DT的事件绑定放到一个function里
+             * 方便以后重用
+             * */
+
+            function bindTableEvent(dtTable){
+                /*   dtTable.on( 'page.dt', function (e) {
+                 alert("turn page finished event");
+                 } );
+
+                 dtTable.on('xhr.dt',function(){
+                 alert("xhr complete!");
+                 });
+
+
+
+                 dtTable.on('init.dt',function(e,settings){
+                 alert("table init event");
+
+                 });
+
+                 dtTable.on('destroy.dt',function(e,settings){
+                 alert("table destroy");
+                 });*/
+
+                dtTable.on('draw.dt',function(e,settings){
+                    // alert("draw");
+                    adjustIndexColumn(dtTable);
+                });
+
+            }
+
+            function adjustIndexColumn(table){
+                table.DataTable().column(0).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                    //alert(cell.innerHTML);
+                });
+            }
+
+            /**
+             *如果是用滚动条 通过table.children("input")来选择checkbook会漏选head中的checkbox。
+             * 因为组件会默认加一个<div:class=dataTables_scrollHead>，真正的Table HEADB被隐藏，显示的是另一个div中的head。
+             * 而此处dt对象是<div:class=dataTables_scrollBody>中的table。
+             */
+            function adjustCheckBoxOnScrollPanel(){
+                dt.on("init.dt", function(event, settings, json) {
+                    //dt.find("thead th input:checkbox");
+                    var wrapper_selector = dt.selector + "_wrapper";
+                    $(wrapper_selector).find("thead th input:checkbox").click(function() {
+                        if ($(this).prop("checked") == true) {
+                            dt.api().column(0).nodes().to$().children("input:checkbox").prop("checked", true);
+                            //alert(dt.api().column(0).nodes().to$().children("input:checkbox").attr("entity-id"));
+                        } else {
+                            dt.api().column(0).nodes().to$().children("input:checkbox").prop("checked", false);
+                        }
+                    });
+                });
+            }
+
+            function dtSearch(){
+                $("#dt-search").children(":button[name=search]").click(function(){
+                    *//* $("#dt-search").children("input:text").each(function(){
+                    alert($(this).prop("name")+" : "+$(this).prop("value"));
+                });
+                var a = $("#dt-search").children("input:text").serializeArray();
+                dt.one("preXhr.dt", function(e, settings, data) {
+                    data.search = JSON.stringify(a);
+                    console.log(data);
+                });
+                dt.api().ajax.reload();
+            };
+
+
+            function dtReset{
+                $("#dt-search").children(":button[name=reset]").click(function() {
+                    $("#dt-search").children("input:text").prop("value", null);
+                });
+            }
+
+
+        });
+
+
+    </script>
+
+
+</body>
+
+</html>
