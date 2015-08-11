@@ -42,8 +42,8 @@
 
 <div id="sub-menu" class="sub-menu">
     <ul>
-        <li class="selected"><a href="#">部门管理</a></li>
-        <!--<li><a href="#">车辆管理</a></li>-->
+        <li class="selected"><a href="#">开始页</a></li>
+        <li><a href="tree-left.html" target="leftFrame">树结构</a></li>
         <!--<li><a href="#">XXX管理</a></li>-->
     </ul>
 </div>
@@ -77,6 +77,11 @@
             },function(jqXHR, textStatus, errorThrown){
                 alert("读取子菜单失败，原因：\n"+jqXHR.responseText);
             });
+        });
+        //对默认的次级导航。注册次级导航click-切换；后期如果数据直接读取，而不是写出来，这个可以除去
+        $("#sub-menu li a").click(function(){
+            $("#sub-menu li.selected").removeClass("selected")
+            $(this).parent("li").addClass("selected");
         })
     })
 </script>
