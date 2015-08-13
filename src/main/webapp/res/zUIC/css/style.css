@@ -472,7 +472,7 @@ h2{font-weight:normal;}
 
 .checkbox-body,.radio-body{
     float:left;
-    margin-top: 5px;
+    margin-top: 2px;
 }
 
 .checkbox, .radio {
@@ -701,4 +701,64 @@ input[type=checkbox], input[type=radio] {
     background-color: transparent;
 }
 
+.divider{
+    border-bottom: 1px dashed #056dae;
+}
+
+/*=========jqUI tab============*/
+.ui-tabs {
+    position: relative;/* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+    height: 36px;
+    border-bottom: solid 1px #d0dee5;
+    position: relative;
+    border-left: solid 1px #d3dbde;
+}
+.ui-tabs .ui-tabs-nav {
+    margin: 0;
+    padding: 2px 2px 0 0;
+}
+.ui-tabs .ui-tabs-nav li {
+    list-style: none;
+    float: left;
+    position: relative;
+    top: 0;
+    /*margin: 1px .2em 0 0;*/
+    padding: 0;
+    white-space: nowrap;
+    height: 37px;
+    line-height: 37px;
+    background: url(../images/itabbg.png) repeat-x;
+    border-right: solid 1px #d3dbde;
+}
+.ui-tabs .ui-tabs-nav li.ui-state-hover{
+    background:radial-gradient(#F3F6F7,#2B7FB5);
+}
+.ui-tabs .ui-tabs-nav .ui-tabs-anchor {
+    font-size: 14px;
+    color: #000;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+.ui-tabs .ui-tabs-nav li.ui-tabs-active {
+    margin-bottom: -1px;
+    padding-bottom: 1px;
+    height: 37px;
+    display: block;
+    background: url(../images/itabbg1.png) repeat-x;
+    font-weight: bold;
+}
+.ui-tabs .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor,
+.ui-tabs .ui-tabs-nav li.ui-state-disabled .ui-tabs-anchor,
+.ui-tabs .ui-tabs-nav li.ui-tabs-loading .ui-tabs-anchor {
+    cursor: text;
+}
+.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor {
+    cursor: pointer;
+}
+.ui-tabs .ui-tabs-panel {
+    display: block;
+    border-width: 0;
+    padding: 1em 1.4em;
+    background: none;
+}
 
