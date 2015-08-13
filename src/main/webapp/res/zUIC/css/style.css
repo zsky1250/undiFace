@@ -368,7 +368,7 @@ h2{font-weight:normal;}
 
 /*bootstrap form*/
 
-.clearfix:after {
+.clearfix:after,.ui-helper-clearfix:after {
     content: ".";
     display: block;
     height: 0;
@@ -708,14 +708,15 @@ input[type=checkbox], input[type=radio] {
 /*=========jqUI tab============*/
 .ui-tabs {
     position: relative;/* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
-    height: 36px;
-    border-bottom: solid 1px #d0dee5;
-    position: relative;
-    border-left: solid 1px #d3dbde;
+    padding: .2em;
 }
 .ui-tabs .ui-tabs-nav {
     margin: 0;
     padding: 2px 2px 0 0;
+    height: 36px;
+    border-bottom: solid 1px #d0dee5;
+    position: relative;
+    border-left: solid 1px #d3dbde;
 }
 .ui-tabs .ui-tabs-nav li {
     list-style: none;
