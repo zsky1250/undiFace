@@ -347,6 +347,7 @@ h2{font-weight:normal;}
 /*============为了使用方便，移植bootstrap的form button样式=======*/
 
 /*grid*/
+
 .w1{
     width: 300px;
 }
@@ -418,13 +419,14 @@ h2{font-weight:normal;}
 
 .form-inline .form-group .control-label {
     display: inline-block;
-    max-width: 100%;
+    max-width: 250px;
     margin: 5px 0 5px 0;
     padding-right: 10px;
     font-size: 14px;
     vertical-align: middle;
-    width: 100px;
+    width: 150px;
     text-align: right;
+    color:#1f7cb6;
 }
 
 .form-inline .form-control {
@@ -449,6 +451,21 @@ h2{font-weight:normal;}
     -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
     -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.form-control .readonly,.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    /*background-color: #eee;*/
+    opacity: 1;
+    border:none;
+    color:#6c6c6c;
+    font-size:14px;
+
+    background: none;
+    border-radius: 0px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-transition:none;
+    -o-transition:none;
+    transition:none;
 }
 
 /*输出框后面放小图标用*/
@@ -571,7 +588,7 @@ input[type=checkbox], input[type=radio] {
     margin-bottom: 0;
     font-size: 14px;
     font-weight: 400;
-    line-height: 1.42857143;
+    line-height: 20px;
     text-align: center;
     white-space: nowrap;
     vertical-align: middle;
@@ -739,6 +756,16 @@ input[type=checkbox], input[type=radio] {
     background-color: transparent;
 }
 
+.sc-btn-group{
+    float:right;
+    margin-right: 100px;
+}
+
+.sc-btn{
+    width: 100px;
+    margin-left: 10px;
+}
+
 .divider{
     border-bottom: 1px dashed #056dae;
 }
@@ -801,3 +828,24 @@ input[type=checkbox], input[type=radio] {
     background: none;
 }
 
+/*bootstrap table*/
+
+.bstable {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+caption {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: #777;
+    text-align: left;
+}
+
+.bstable td{
+    padding: 3px;
+    line-height: 25px;
+     /*vertical-align: top;*/
+    border-bottom: 1px solid #f6f6f6;
+}
