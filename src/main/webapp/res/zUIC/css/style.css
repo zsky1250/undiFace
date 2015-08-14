@@ -6,7 +6,7 @@
  * e-mail: admin@uimaker.com
  */
 *{font-size:9pt;border:0;margin:0;padding:0;}
-body{font-family:'微软雅黑'; margin:0 auto;min-width:980px;}
+body{font-family:'微软雅黑'; margin:0 auto;min-width:980px;text-align:left;}
 ul{display:block;margin:0;padding:0;list-style:none;}
 li{display:block;margin:0;padding:0;list-style: none;}
 img{border:0;}
@@ -25,17 +25,17 @@ h2{font-weight:normal;}
 
 
 /*login*/
-.logintop{height:47px; position:absolute; top:0; background:url(../images/loginbg1.png) repeat-x;z-index:100; width:100%;}
-.logintop span{color:#fff; line-height:47px; background:url(../images/loginsj.png) no-repeat 21px 18px; text-indent:44px; color:#afc5d2; float:left;}
+.logintop{height:50px; position:absolute; top:0; background:url(../images/loginbg1.png) repeat-x;z-index:100; width:100%;}
+.logintop span{line-height:47px; background:url(../images/loginsj.png) no-repeat 21px 18px; text-indent:44px; color:#CAE4F4; float:left;font-size:14px}
 .logintop ul{float:right; padding-right:30px;}
 .logintop ul li{float:left; margin-left:20px; line-height:47px;}
 .logintop ul li a{color:#afc5d2;}
 .logintop ul li a:hover{color:#fff;}
-.loginbody{background:url(../images/loginbg3.png) no-repeat center center; width:100%; height:585px; overflow:hidden; position:absolute; top:47px;}
-.systemlogo{background:url(../images/loginlogo.png) no-repeat center;width:100%; height:71px; margin-top:75px;}
-.loginbox{width:692px; height:336px; background:url(../images/logininfo.png) no-repeat; margin-top:30px;}
-.loginbox ul{margin-top:88px; margin-left:285px;}
-.loginbox ul li{margin-bottom:25px;}
+.loginbody{ width:100%; height:585px; overflow:hidden; position:absolute; top:47px;}
+.systemlogo{background:url(../images/loginlogo2.png) no-repeat center;width:100%; height:80px; margin-top:55px;display: block}
+.loginbox{width:692px; height:336px; background:url(../images/logininfo.png) no-repeat; margin-top:20px;}
+.loginbox ul{margin-top:80px; margin-left:70px;}
+.loginbox ul li{margin-bottom:15px;}
 .loginbox ul li label{color:#687f92; padding-left:25px;}
 .loginbox ul li label a{color:#687f92;}
 .loginbox ul li label a:hover{color:#3d96c9;}
@@ -47,12 +47,42 @@ h2{font-weight:normal;}
 .loginbm a{font-weight:bold;color:#0b3a58;}
 .loginbm a:hover{color:#fff;}
 
+.fullBg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.login-error{
+    position: relative;
+    top:70px;
+    left: 40px;
+    /*margin:50px 30px;*/
+    padding:0 0 0 30px;
+    border: 2px solid #F2D5C5;
+    background: #f2dede;
+    height: 25px;
+    width: 300px;
+    color:#A94442;
+    font-size: 14px;
+    line-height: 25px;
+}
+.warning-icon{
+    position: absolute;
+    display: block;
+    top:0px;
+    left:0px;
+    height: 24px;
+    width: 24px;
+    background: url(../images/warning.png) no-repeat;
+}
 
 /*top.html*/
 .top-menu{height:75px;width:100%}
 
 .topleft{height:75px;background:url(../images/topleft.jpg) no-repeat;float:left; width:300px;}
-.topleft img{margin-top:12px;margin-left:10px;}
+.topleft img{margin-top:2px;margin-left:10px;}
 
 .nav{float:left;margin-top:45px;width:886px;background: url(../images/top_nav_bg.jpg)}
 .nav li{float:left;width:128px;height:30px; text-align:center;margin-left:-4px;}
@@ -227,9 +257,9 @@ h2{font-weight:normal;}
 
 
 /*form*/
-.formbody{padding:10px 10px;}
-.formtitle{border-bottom:solid 1px #d0dee5; line-height:35px; position:relative; height:35px; margin-bottom:15px;}
-.formtitle span{font-weight:bold;font-size:14px; border-bottom:solid 3px #66c9f3;float:left; position:absolute; z-index:100; bottom:-1px; padding:0 3px; height:30px; line-height:30px;}
+.formbody ,.zWinBody{padding:10px 10px;}
+.formtitle ,.zWinTitle{border-bottom:solid 1px #d0dee5; line-height:35px; position:relative; height:35px; margin-bottom:15px;}
+.formtitle span ,.zWinTitle span{font-size:14px; border-bottom:solid 3px #66c9f3;float:left; position:absolute; z-index:100; bottom:-1px; padding:0 3px; height:30px; line-height:30px;}
 .forminfo{padding-left:23px;}
 .forminfo li{margin-bottom:13px; clear:both;}
 .forminfo li label{width:86px;line-height:32px; display:block; float:left;}
@@ -378,7 +408,8 @@ h2{font-weight:normal;}
     width: 100%;
 }
 
-.childWindowBody{
+.zWinPanel{
+    width: 930px;
     padding:0 10px 0 10px;
 }
 
@@ -424,16 +455,12 @@ h2{font-weight:normal;}
     padding-right: 10px;
     font-size: 14px;
     vertical-align: middle;
-    width: 150px;
+    width: 100px;
     text-align: right;
     color:#1f7cb6;
 }
 
-.form-inline .form-control {
-    display: inline-block;
-    /*width: auto;*/
-    vertical-align: middle;
-}
+
 .form-control
 {
     display: block;
@@ -458,7 +485,6 @@ h2{font-weight:normal;}
     border:none;
     color:#6c6c6c;
     font-size:14px;
-
     background: none;
     border-radius: 0px;
     -webkit-box-shadow: none;
@@ -466,6 +492,29 @@ h2{font-weight:normal;}
     -webkit-transition:none;
     -o-transition:none;
     transition:none;
+    resize: none;
+    text-align: left;
+
+}
+
+textarea{
+    text-align: left;
+}
+
+.form-inline .form-control {
+    display: inline-block;
+    /*width: auto;*/
+    vertical-align: middle;
+    width: 160px;
+}
+
+.bstable td[colspan="2"] .form-control,.form-inline .form-control .md{
+    width: 465px;
+}
+
+.bstable td[colspan="3"] .form-control, .form-inline .form-control .lg
+{
+    width: 775px;
 }
 
 /*输出框后面放小图标用*/
@@ -758,7 +807,7 @@ input[type=checkbox], input[type=radio] {
 
 .sc-btn-group{
     float:right;
-    margin-right: 100px;
+    margin-right: 20px;
 }
 
 .sc-btn{

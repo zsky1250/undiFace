@@ -7,25 +7,7 @@
     <link href="${res}/css/style.css" rel="stylesheet" type="text/css"/>
     <script language="JavaScript" src="${res}/js/jquery-1.11.1.js"></script>
 
-    <script type="text/javascript">
-        $(function () {
-            //导航切换
-            $(".menuson li").click(function () {
-                $(".menuson li.active").removeClass("active")
-                $(this).addClass("active");
-            });
 
-            $('.title').click(function () {
-                var $ul = $(this).next('ul');
-                $('dd').find('ul').slideUp();
-                if ($ul.is(':visible')) {
-                    $(this).next('ul').slideUp();
-                } else {
-                    $(this).next('ul').slideDown();
-                }
-            });
-        })
-    </script>
 
 
 </head>
@@ -39,7 +21,7 @@
         <div class="title">
             <span><img src="${res}/images/leftico01.png"/></span>模板展示
         </div>
-        <ul class="menuson">
+        <ul id="leftMenu" class="menuson">
             <li><cite></cite><a href="index.html" target="rightFrame">首页模版</a><i></i></li>
             <li class="active"><cite></cite><a href="right.html" target="rightFrame">基本数据列表</a><i></i></li>
             <li><cite></cite><a href="dtTable.html" target="rightFrame">dataTable数据</a><i></i></li>
@@ -50,7 +32,7 @@
             <li><cite></cite><a href="fullForm.html" target="rightFrame">表单+验证</a><i></i></li>
             <li><cite></cite><a href="tab.html" target="rightFrame">Tab页</a><i></i></li>
             <li><cite></cite><a href="tabWithEditor.html" target="rightFrame">原-Tab页+Editor</a><i></i></li>
-            <li><cite></cite><a href="childWindow.html" target="view_window">弹出子窗口</a><i></i></li>
+            <li><cite></cite><a href="childWindow.html" target="zwin">弹出子窗口</a><i></i></li>
 
             <li><cite></cite><a href="imglist1.html" target="rightFrame">自定义</a><i></i></li>
             <li><cite></cite><a href="tools.html" target="rightFrame">常用工具</a><i></i></li>
@@ -97,5 +79,30 @@
 
 </dl>
 
+<script type="text/javascript">
+    $(function () {
+        //导航切换
+        $(".menuson li").click(function () {
+            $(".menuson li.active").removeClass("active")
+            $(this).addClass("active");
+        });
+
+        $('.title').click(function () {
+            var $ul = $(this).next('ul');
+            $('dd').find('ul').slideUp();
+            if ($ul.is(':visible')) {
+                $(this).next('ul').slideUp();
+            } else {
+                $(this).next('ul').slideDown();
+            }
+        });
+
+        $('#leftMenu').on('click.zui','a[target="zwin"]',function(e){
+            e.preventDefault();
+            var url=$(this).attr("href");
+            window.open (url, "新窗口查询", "height=700, width=1000, top=20,left=200,toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no,status=no")
+        });
+    })
+</script>
 </body>
 </html>
