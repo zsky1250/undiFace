@@ -147,7 +147,7 @@ h2{font-weight:normal;}
 .lefttop{background:url(../images/lefttop.gif) repeat-x;height:40px;color:#fff;font-size:14px;line-height:40px;}
 .lefttop span{margin-left:8px; margin-top:10px;margin-right:8px; background:url(../images/leftico.png) no-repeat; width:20px; height:21px;float:left;}
 .leftmenu{width:187px;padding-bottom: 9999px;margin-bottom: -9999px; overflow:hidden; background:url(../images/leftline.gif) repeat-y right;}
-.leftmenu dd{background:url(../images/leftmenubg.gif) repeat-x;line-height:35px;font-weight:bold;font-size:14px;border-right:solid 1px #b7d5df;}
+.leftmenu dd{background:url(../images/leftmenubg.gif) repeat-x;line-height:35px;font-size:14px;border-right:solid 1px #b7d5df;}
 .leftmenu dd span{float:left;margin:10px 8px 0 12px;}
 .leftmenu dd .menuson{display:none;}
 .leftmenu dd:first-child .menuson{display:block;}
@@ -860,7 +860,6 @@ input[type=checkbox], input[type=radio] {
     height: 37px;
     display: block;
     background: url(../images/itabbg1.png) repeat-x;
-    font-weight: bold;
 }
 .ui-tabs .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor,
 .ui-tabs .ui-tabs-nav li.ui-state-disabled .ui-tabs-anchor,
