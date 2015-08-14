@@ -227,8 +227,8 @@ h2{font-weight:normal;}
 
 
 /*form*/
-.formbody{padding:5px 10px;}
-.formtitle{border-bottom:solid 1px #d0dee5; line-height:35px; position:relative; height:35px; margin-bottom:28px;}
+.formbody{padding:10px 10px;}
+.formtitle{border-bottom:solid 1px #d0dee5; line-height:35px; position:relative; height:35px; margin-bottom:15px;}
 .formtitle span{font-weight:bold;font-size:14px; border-bottom:solid 3px #66c9f3;float:left; position:absolute; z-index:100; bottom:-1px; padding:0 3px; height:30px; line-height:30px;}
 .forminfo{padding-left:23px;}
 .forminfo li{margin-bottom:13px; clear:both;}
@@ -366,6 +366,21 @@ h2{font-weight:normal;}
     width: 700px;
 }
 
+/*3列table模型-宽度*/
+.col31{
+    width: 33%;
+}
+.col32{
+    width: 66%;
+}
+.col33{
+    width: 100%;
+}
+
+.childWindowBody{
+    padding:0 10px 0 10px;
+}
+
 /*bootstrap form*/
 
 .clearfix:after,.ui-helper-clearfix:after {
@@ -377,7 +392,7 @@ h2{font-weight:normal;}
 }
 
 .form-horizontal{
-    margin-top: 30px;
+
 }
 
 .form-horizontal .form-group{
@@ -393,6 +408,29 @@ h2{font-weight:normal;}
     display: block;
     float: left;
     font-size: 14px;
+}
+
+.form-inline .form-group{
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+.form-inline .form-group .control-label {
+    display: inline-block;
+    max-width: 100%;
+    margin: 5px 0 5px 0;
+    padding-right: 10px;
+    font-size: 14px;
+    vertical-align: middle;
+    width: 100px;
+    text-align: right;
+}
+
+.form-inline .form-control {
+    display: inline-block;
+    /*width: auto;*/
+    vertical-align: middle;
 }
 .form-control
 {
@@ -731,8 +769,8 @@ input[type=checkbox], input[type=radio] {
     background: url(../images/itabbg.png) repeat-x;
     border-right: solid 1px #d3dbde;
 }
-.ui-tabs .ui-tabs-nav li.ui-state-hover{
-    background:radial-gradient(#F3F6F7,#2B7FB5);
+.ui-tabs .ui-tabs-nav li.ui-state-hover {
+    background: url(../images/itabbg3.png) repeat-x;
 }
 .ui-tabs .ui-tabs-nav .ui-tabs-anchor {
     font-size: 14px;
