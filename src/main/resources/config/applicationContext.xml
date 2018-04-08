@@ -22,21 +22,6 @@
 			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
 	</context:component-scan>
 
-	<bean id="Jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
-		<property name="classesToBeBound">
-			<list>
-				<value>com.udf.core.web.menu.bean.Menu</value>
-				<value>com.udf.core.web.menu.bean.MenuItem</value>
-			</list>
-		</property>
-	</bean>
-
-<!--	<bean id="MenuConfigurer" class="com.udf.core.web.menu.service.MenuConfigurer">
-		<constructor-arg>
-			<value>classpath:config/menu.xml</value>
-		</constructor-arg>
-	</bean>-->
-
 
 	<!--开启springAOP,默认用JDK动态代理，面向接口 -->
 	<!--<aop:aspectj-autoproxy expose-proxy="true" />-->
@@ -67,6 +52,19 @@
 				<entry key="xml" value="application/xml;;charset=utf-8" />
 			</map>
 		</property>
+	</bean>
+
+	<bean id="jaxb2Marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+		<property name="classesToBeBound">
+			<list>
+				<value>com.udf.core.menu.bean.Menu</value>
+				<value>com.udf.core.menu.bean.MenuItem</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean class="com.udf.core.menu.service.MenuService">
+		<property name="location" value="classpath:config/menu.xml"/>
 	</bean>
 
 </beans>

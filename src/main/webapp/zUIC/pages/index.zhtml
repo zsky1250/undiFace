@@ -1,0 +1,115 @@
+<#--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>${WEB_TITLE}</title>
+    <link href="${RES}/css/main.css" rel="stylesheet" type="text/css" />
+    <script src="${RES}/js/require-2.2.0.js" data-main=""></script>
+    <script src="${RES}/js/requireConfig.js" ></script>
+<#--    <script type="text/javascript" src="${RES}/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="${RES}/js/jquery.transit.js"></script>
+    <script type="text/javascript" src="${RES}/js//bootstrapValidator-all.js"></script>
+    <script type="text/javascript" src="${RES}/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="${RES}/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="${RES}/js/zui-frame.js"></script>
+    <script type="text/javascript" src="${RES}/js/zui-tree.js"></script>
+    <script type="text/javascript" src="${RES}/js/zui-list.js"></script>
+    <script type="text/javascript" src="${RES}/js/zui-form.js"></script>
+    <script type="text/javascript" src="${RES}/js/zui-table.js"></script>-->
+</head>
+<body>
+
+<body style="overflow: auto">
+<!-- menu -->
+<div class="navbar navbar-zface" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/index"></a>
+    </div>
+    <ul class="navbar-nav nav" id="module"></ul>
+    <div class="navbar-tail"></div>
+</div>
+
+
+<!-- left panel -->
+<div id="left-panel" class="left-panel">
+    <div class="left-panel-slider">
+			<span class="fa-stack arrow" id="left-panel-toggle"> <i
+                    class="fa fa-circle-thin fa-stack-2x"></i> <i
+                    class="fa  fa-arrow-left fa-stack-1x" id='left-panel-arrow'></i> </span>
+    </div>
+    <div class="user-info">
+        <div class="avator">
+            <a> <img src="${RES}/images/avatar.jpg" alt="...">
+            </a>
+        </div>
+        <div class="welcome">
+            <span>欢迎您 ${(currentUser.realname)!""}</span>
+            <a href="/logout" class="btn btn-primary btn-xs">
+                <i class="fa fa-sign-out fa-fw"></i>退出</a>
+            <a class="welcome_text" href="/admin/user">修改密码</a>
+        </div>
+    </div>
+    <div id="left-panel-list" class="left-panel-list"></div>
+    <div id="left-panel-version" class="left-panel-version">
+        <a title="内核版本：${coreVersion!"UNKNOWN"} 数据库版本：${DBVersion!"UNKNOWN"}"></a>
+        <li>内核版本：${coreVersion!"UNKNOWN"}</li>
+        <li>数据库版本：${DBVersion!"UNKNOWN"}</li>
+    </div>
+</div>
+<!-- end of left panel -->
+
+<!-- location -->
+<div class="location-panel">
+    <div class="location-info"><i class="fa fa-home fa-fw"></i>当前位置：</div>
+    <ol class="breadcrumb" id="localtion-panel">
+        <li><a>我的面板</a></li>
+    </ol>
+</div>
+
+<!--信息展示用的对话框-->
+<!--处理中-->
+<div class="processing-box" id="processing-box" style="display: none;z-index:999">
+    <div class="simple-info">
+        <img src="${RES}/images/loading.gif"/>
+        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+            <circle class="checkmark_circle" cx="26" cy="26" r="25" fill="none"/>
+            <path class="checkmark_check" fill="none"/>
+        </svg>
+        <span>服务器加载中</span>
+    </div>
+
+    <div class="detail-info">
+        <span class="info-msg">
+            提示信息
+        </span>
+        <div class="info-btn">
+            <span> 返  回 </span>
+        </div>
+        <div class="confirm-btn">
+            <span class="confirm-ok"> 确 定 </span>
+            <span class="confirm-back"> 返 回 </span>
+        </div>
+    </div>
+
+</div>
+<div class="info-mask" id="info-mask" style="display: none"></div>
+
+<div id="main-panel-wrapper" class="main-panel-wrapper">
+<#attempt>
+   <#include "user.zhtml"/>
+    <#recover>
+    <#include "error/404.shtml"/>
+</#attempt>
+</div>
+
+
+
+<script type="text/javascript">
+    require(['jquery','zuiFrame'],function($,zui) {
+        $(function () {
+            zui.init({},'${modulePath!""}');
+        });
+    });
+</script>
+</html>

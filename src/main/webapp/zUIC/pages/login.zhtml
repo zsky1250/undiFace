@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>欢迎登录后台管理系统</title>
+    <link href="${RES}/css/main.css" rel="stylesheet" type="text/css" />
+    <script language="JavaScript" src="${RES}/js/jquery-1.12.4.min.js"></script>
+</head>
+
+<body>
+
+<div class="login-top">
+    <a class="logo"></a>
+    <ul>
+        <li><a href="#">帮助</a></li>
+        <li><a href="#">关于</a></li>
+    </ul>
+</div>
+
+<div id="loginPanel" class="login-panel">
+    <form id="loginForm" action="/login" method="POST" class="login-form" onSubmit="return validate();">
+        <div class="form-group">
+            <label class="col-sm-1 control-label"></label>
+            <div id="errorPanel" class="col-sm-10 error-text" style="display: none"><i></i><span>用户名或密码错误</span></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-1 control-label"></label>
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user"></i> </span>
+                    <input name="username" id="username" type="text" class="form-control" placeholder="用户名" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-1 control-label"></label>
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-lock"></i> </span>
+                    <input name="password" id="password" type="password" class="form-control" placeholder="密码">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-1 control-label"></label>
+            <div class="col-sm-8">
+                    <button id="submitLoginForm" type="submit" class="login-btn">登录</button>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="remeberMe"/>记住我
+                    </label>
+                    <a class="forget-pass" href="#">忘记密码？</a>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="login-footer"> Copyright &copy; 2014-2017 By XO Crop. All rights reserved.</div>
+
+<script type="text/javascript">
+    var bg_src="${RES}/images/login-bg.jpg";
+    $('body').prepend("<img src="+bg_src+" id='background'>");
+    var bgImg = $("#background");
+    bgImg.addClass('fullBg');
+    function resize() {
+        var winwidth = $(window).width();
+        var winheight = $(window).height();
+
+        bgImg.load(function(){
+            var imgwidth = bgImg.width();
+            var imgheight = bgImg.height();
+
+            var widthratio = winwidth/imgwidth;
+            var heightratio = winheight/imgheight;
+
+            var widthdiff = heightratio*imgwidth;
+            var heightdiff = widthratio*imgheight;
+
+            if(heightdiff>winheight) {
+                bgImg.css({
+                    width: winwidth+'px',
+                    height: heightdiff+'px'
+                });
+            } else {
+                bgImg.css({
+                    width: widthdiff+'px',
+                    height: winheight+'px'
+                });
+            }
+        });
+        $('#loginPanel').css({'top':(winheight-$('.footer').height())/2-$('#loginPanel').height()/2-50
+            ,'left':winwidth/2-346});
+    }
+    $(window).resize(resize).trigger("resize");
+    function validate() {
+        //验证用户名
+        var username = $("#username").prop("value");
+        var checkName = username.search("^[a-zA-Z0-9_]{5,12}$") >= 0;
+        var pass = $("#password").prop("value");
+        var checkPass = pass.search(".{5,12}") >= 0;
+        if (checkName && checkPass) {
+            return true;
+        } else {
+            var errorText = "";
+            if (!checkName) {
+                errorText += "用户名为5-12位，由字母、数字、下划线组成<br/>"
+            }
+            if (!checkPass) {
+                errorText += "密码应为5-12位."
+            }
+            $("#errorPanel").show().children("span").html(errorText);
+            return false;
+        }
+    }
+</script>
+</body>
+
+</html>

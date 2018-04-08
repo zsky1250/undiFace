@@ -50,9 +50,9 @@
                 </property>
             </bean>
         </mvc:message-converters>
-        <!-- 参数绑定 -->
+        <!-- 参数绑定解析器 将页面提供的page,size,sort转换为controller的pageable参数 -->
         <mvc:argument-resolvers>
-            <!--<bean class="org.springframework.data.web.PageableHandlerMethodArgumentResolver"/>-->
+            <bean class="org.springframework.data.web.PageableHandlerMethodArgumentResolver"/>
         </mvc:argument-resolvers>
     </mvc:annotation-driven>
 
@@ -60,7 +60,9 @@
 
 
     <!-- 静态资源映射 -->
+    <mvc:redirect-view-controller path="/" redirect-url="/index"/>
     <mvc:resources mapping="/res/**" location="/res/"/>
+    <mvc:resources mapping="/zUIC/resources/**" location="/zUIC/resources/"/>
     <mvc:default-servlet-handler/>
 
     <!-- ============= view =============-->
@@ -71,8 +73,8 @@
 
     <!-- html view-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="order" value="2"/>
-        <property name="prefix" value="/WEB-INF/"/>
+        <property name="order" value="3"/>
+        <property name="prefix" value="/html/"/>
         <property name="suffix" value=".html"/>
     </bean>
 
@@ -84,21 +86,22 @@
     <!--</bean>-->
 
     <!-- freeMarker view -->
-    <bean id="freeMarkerViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+    <bean id="freeMarkerViewResolver" class="com.udf.core.web.freemarker.ZuiFreeMarkerViewResolver">
         <!--这里不用FreeMarkerViewResolver是为了能有效的注入自己的UndiFreeMarkerView-->
         <!--<property name="viewClass" value="com.udf.core.web.mvc.freeMarker.UndiFreeMarkerView"/>-->
         <property name="order" value="1"/>
         <property name="contentType" value="text/html; charset=utf-8"/>
         <property name="cache" value="true"/>
         <property name="prefix" value=""/>
-        <property name="suffix" value=".html"/>
+        <property name="suffix" value=".zhtml"/>
         <property name="requestContextAttribute" value="request"/>
         <property name="exposeSpringMacroHelpers" value="true"/>
         <property name="exposeRequestAttributes" value="true"/>
         <property name="exposeSessionAttributes" value="true"/>
+        <property name="cacheLimit" value="0"/>
     </bean>
     <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-        <property name="templateLoaderPath" value="/WEB-INF/"/>
+        <property name="templateLoaderPath" value="/"/>
         <!--freemarker全局设置 通过Spring的factoryBean读properties引入-->
         <property name="freemarkerSettings" ref="freemarkerPropSettings"/>
         <!-- freemarker变量，这里可以应用java改写的自定义宏-->

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 @Controller
 public class zUICController {
 
-    //ContentNegotiaing写法。等效于@ResponseBody
+    //ContentNegoation写法。等效于@ResponseBody
     @RequestMapping("/zUIC/subMenuList")
     public void getSubMenuListByTopMenu(String menuID,Model model){
         ArrayList<subMenu> subMenuList = new ArrayList<>();

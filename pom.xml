@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.udf</groupId>
-    <artifactId>undiFace</artifactId>
+    <artifactId>zuiFace</artifactId>
     <version>0.1-SNAPSHOT</version>
 
-    <name>undiFace</name>
+    <name>zuiFace</name>
     <description>UNDIFITION'S UI Template.</description>
 
     <!-- 定义工程变量 -->
@@ -230,6 +230,13 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate-validate-version}</version>
+        </dependency>
+
+        <!--============= Spring Data JPA ================ -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring-data-jpa-version}</version>
         </dependency>
 
     </dependencies>

@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="${RES}/css/style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript" src="${RES}/js/jquery-1.11.1.js"></script>
+</head>
+
+<body style="background:url(${RES}/images/topbg.gif) repeat-x;">
+
+<div class="top-menu">
+
+    <div class="topleft">
+        <a href="main.html" target="_parent"><img src="${RES}/images/main-logo.png" title="系统首页"/></a>
+    </div>
+
+    <ul id="top-menu" class="nav">
+        <li><a href="default.html" class="selected">工作台</a></li>
+        <li><a href="aaa" >模型管理</a></li>
+        <li><a href="bbb">模块设计</a></li>
+        <li><a href="tools.html" >常用工具</a></li>
+        <li><a href="computer.html" >文件管理</a></li>
+        <li><a href="tab.html" >系统设置</a></li>
+    </ul>
+
+    <div class="topright">
+        <ul>
+            <li><span><img src="${RES}/images/help.png" title="帮助" class="helpimg"/></span><a href="#">帮助</a></li>
+            <li><a href="#">关于</a></li>
+            <li><a href="login.html" target="_parent">退出</a></li>
+        </ul>
+    </div>
+
+    <div class="user">
+        <span>1中队 2小队 xxx</span>
+        <i>消息</i>
+        <b>5</b>
+    </div>
+</div>
+
+
+<div id="sub-menu" class="sub-menu">
+    <ul>
+        <li class="selected"><a  href="left.html" target="leftFrame">开始页</a></li>
+        <li><a href="leftTree.html" target="leftFrame">树结构</a></li>
+        <!--<li><a href="#">XXX管理</a></li>-->
+    </ul>
+</div>
+
+
+<script type="text/javascript">
+    $(function(){
+        //变量定义
+        var subMenuUrl = "subMenuList.json";
+        //顶部导航切换
+        $("#top-menu li a").click(function(e){
+            e.preventDefault();
+            var that = $(this);
+            var menuID = $(this).attr("href");
+            var ajaxRESult = $.ajax(subMenuUrl, {
+                type: 'POST',
+                data: {'menuID': menuID},
+            }).then(function( data, textStatus, jqXHR){
+                $("#top-menu li a.selected").removeClass("selected");
+                that.addClass("selected");
+                var subMenulist = [];
+                $.each(data.subMenuList,function(index,element){
+                   subMenulist[index]='<li><a href="'+element.href+'" target="leftFrame">'+element.text+'</a></li>';
+                });
+                $("#sub-menu").children('ul').html(subMenulist.join(''));
+                //注册次级导航click-切换
+                $("#sub-menu li a").click(function(){
+                    $("#sub-menu li.selected").removeClass("selected")
+                    $(this).parent("li").addClass("selected");
+                })
+            },function(jqXHR, textStatus, errorThrown){
+                alert("读取子菜单失败，原因：\n"+jqXHR.RESponseText);
+            });
+        });
+        //对默认的次级导航。注册次级导航click-切换；后期如果数据直接读取，而不是写出来，这个可以除去
+        $("#sub-menu li a").click(function(){
+            $("#sub-menu li.selected").removeClass("selected")
+            $(this).parent("li").addClass("selected");
+        })
+    })
+</script>
+</body>
+</html>

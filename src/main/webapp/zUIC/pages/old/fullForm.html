@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <link href="${res}/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="${res}/../plugins/bootstrapValidator-0.5.3/css/bootstrapValidator.css" rel="stylesheet" type="text/css" />
+    <script language="JavaScript" src="${res}/js/jquery-1.11.1.js"></script>
+    <script language="JavaScript" src="${res}/../plugins/bootstrapValidator-0.5.3/js/bootstrapValidator.js"></script>
+
+
+</head>
+
+<body>
+
+<div class="zWinBody">
+
+<div class="zWinTitle"><span>bootstrap更改的表单+验证</span></div>
+
+
+<form id="testForm" class="form-horizontal" action="login" method="POST">
+
+    <div class="form-group w2">
+        <label class="control-label">用户名</label>
+        <input name="username" id="username" type="text" class="form-control"  placeholder="用户名" />
+    </div>
+
+    <div class="form-group w2">
+        <label class="control-label">文章标题</label>
+        <input name="textTitle" id="textTitle" type="text" class="form-control"  placeholder="用户名" />
+    </div>
+
+    <!--============checkbox and radio=============-->
+    <div class="form-group clearfix w4">
+        <label class="control-label">复选框</label>
+        <div class="checkbox-body">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="">
+                    红色蓝色和粉色
+                </label>
+            </div>
+            <div class="checkbox disabled">
+                <label>
+                    <input type="checkbox" value="" disabled>
+                    红色蓝色和粉色
+                </label>
+            </div>
+        </div>
+        <!--<div class="clear"></div>-->
+    </div>
+    <div class="form-group clearfix w4">
+        <label class="control-label">单选框</label>
+        <div class="checkbox-body">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                    男
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                    女
+                </label>
+            </div>
+            <div class="radio disabled">
+                <label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled>
+                    中性
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="formtitle"><span>分隔线</span></div>
+
+    <div class="form-group clearfix w4">
+        <label class="control-label">复选框</label>
+        <div class="checkbox-body">
+            <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox2" value="option2"> 2
+            </label>
+            <label class="checkbox-inline">
+                <input type="checkbox" id="inlineCheckbox3" value="option3"> 3
+            </label>
+        </div>
+    </div>
+
+    <div class="form-group clearfix w4">
+        <label class="control-label">单选框</label>
+
+        <div class="checkbox-body">
+            <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 1
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 2
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> 3
+            </label>
+
+        </div>
+    </div>
+
+    <div class="form-group clearfix w4">
+        <label class="control-label">文章标题</label>
+        <select class="form-control">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+    </div>
+
+    <div class="form-group clearfix w4">
+        <label class="control-label">文本域</label>
+        <textarea class="form-control" rows="3"></textarea>
+    </div>
+
+    <!--================button==============-->
+    <div style="margin:10px 20px">
+    <!-- Standard button -->
+    <button type="button" class="bbtn btn-default">（默认样式）Default</button>
+
+    <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+    <button type="button" class="bbtn btn-primary">（首选项）Primary</button>
+
+    <!-- Indicates a successful or positive action -->
+    <button type="button" class="bbtn btn-success">（成功）Success</button>
+
+    <!-- Contextual button for informational alert messages -->
+    <button type="button" class="bbtn btn-info">（一般信息）Info</button>
+
+    <!-- Indicates caution should be taken with this action -->
+    <button type="button" class="bbtn btn-warning">（警告）Warning</button>
+
+    <!-- Indicates a dangerous or potentially negative action -->
+    <button type="button" class="bbtn btn-danger">（危险）Danger</button>
+
+    <!-- Deemphasize a button by making it look like a link while maintaining button behavior -->
+    <button type="button" class="bbtn btn-link">（链接）Link</button>
+
+</form>
+
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#testForm").bootstrapValidator({
+            excluded: [
+                ':disabled', ':hidden', ':not(:visible)'
+            ],
+            feedbackIcons: {
+                valid: 'fa fa-check',
+                invalid: 'fa fa-times',
+                validating: 'fa fa-circle-o-notch fa-spin'
+            },
+            live: 'enabled',
+            submitButtons: 'button[type="submit"]',
+            trigger: null,
+            fields: {
+                username: {
+//                    container: '#username-helpblock',
+                    validators: {
+                        notEmpty: {
+                            message: "sdfsdf"
+                        },
+                        stringLength: {
+                            min: 6,
+                            max: 32,
+                            message: "sdfertert"
+                        },
+                    }
+                },
+                password: {
+                    container: '#password-helpblock',
+                    validators: {
+                        notEmpty: {
+                            message: "sdfwerwer"
+
+                        },
+
+                        stringLength: {
+                            min: 6,
+                            message: "sdfsdf"
+
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+</body>
+
+</html>

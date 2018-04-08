@@ -1,0 +1,223 @@
+<div class="main-panel">
+    <div class="tab-header">
+        <div class="header-query form-inline" style="width: 65%" id="userSearch">
+            <div class="form-group">
+                <label>姓名或用户名</label>
+                <input type="text" name="username" class="form-control input-sm" placeholder="">
+            </div>
+            <span data-op="search" class="btn btn-primary btn-sm"><i class="fa fa-search" style="margin-right: 5px"></i>查询</span>
+            <span data-op="reset" class="btn btn-danger btn-sm"><i class="fa fa-times-circle" style="margin-right: 5px"></i>重置</span>
+        </div>
+        <ul class="tabs" style="width: 35%" >
+            <li name="list" id="userListTab" class="list selected"><i class="fa fa-chevron-left"></i><span class="show-when-selected">用户列表</span></li>
+            <li name="detail" class="list" style="display: none"><span>详细信息</span></li>
+        </ul>
+    </div>
+    <div class="form-body">
+        <form class="form-horizontal tab-body">
+            <div name="list" class="tab-content">
+                <table id="userTable" class="table-bordered"></table>
+            </div>
+            <div name="detail" class="tab-content">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">用户名</label>
+                    <div class="col-sm-4">
+                        <input name="username" type="text" class="form-control" placeholder="输入登录账号名称" value="${(item.username)!}">
+                        <input name="id" type="text" class="form-control" style="display: none" value="${(item.id)!}">
+                    </div>
+                    <div class="col-sm-6"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">真实姓名</label>
+                    <div class="col-sm-4">
+                        <input name="name" type="text" class="form-control" placeholder="输入用户真实名称" value="${(item.name)!}">
+                    </div>
+                    <div class="col-sm-6"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">地址</label>
+                    <div class="col-sm-4">
+                        <div class="input-group date">
+                            <input type="text" class="form-control" name="address" value="${(item.address)!}">
+                            <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"></label>
+                    <div class="col-sm-4">
+                        <div class="operations">
+                            <span id="userSave" class="save" data-op="save"><i></i>保存</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    require(['jquery','zuiFrame','zuiTable','zuiForm'],function($,zui){
+        if(zui.initialized){
+            pageInit();
+        }else{
+            $("body").one("afterFrameInit.zui", pageInit);
+        }
+        function pageInit() {
+            var tabStatus = <#if item??>"detail"<#else>"list"</#if>
+            var userTable = initTable();
+            var userForm = initForm(tabStatus);
+            function initForm(selected){
+                var form = zui.buildForm($(".main-panel"),'user',"tabForm",{tab:selected});
+                form.bindValidation({
+                    fields : {
+                        username : {
+                            validators : {
+                                notEmpty : {
+                                    message : '用户名不能为空'
+                                },
+                                stringLength : {
+                                    min : 5,
+                                    max : 12,
+                                    message : '长度应在%s到%s位之间'
+                                },
+                                regexp : {
+                                    regexp : /^[a-zA-Z0-9_]+$/,
+                                    message : '用户名应该由字母、数字、下划线组成'
+                                },
+                            },
+                        },
+                    },
+                });
+                form.postTabSwitch(function(currentTab){
+                    if(currentTab.name === "list"){
+                        form.hideTab("detail");
+                        zui.pushInHistory(zui.buildPath("/user"));
+                    }else{
+                        form.showTab("detail");
+                    }
+                });
+                //保存
+                form.addOperationListener("save",function(){
+                    if(form.validate()){
+                        form.update().done(function(data){
+                            userTable.refresh();
+                            form.gotoTab("list");
+                        });
+                    }else{
+                        zui.warn("提示","表单填写有误，请检查后提交!");
+                    }
+                });
+                return form;
+            }
+
+            function initTable(){
+                var table = zui.buildTable($("#userTable"),{
+                    table:{
+                        columns:[
+                            {
+                                data:"userName",
+                                title:"用户名",
+                            },
+                            {
+                                data:"name",
+                                title:"姓名",
+                            },
+                            {
+                                data:"address",
+                                title:"地址",
+                            },
+                            {
+                                data:"op",
+                                width:250,
+                                btn:[
+                                    ['修改','modify'],['删除','remove']
+                                ],
+                            }
+                        ],
+                        order : [ [ 0, "asc" ] ],
+                    },
+                    height:500,
+                    serverURL:"/user/userList.json",
+                    check:false
+                },$("#userSearch"), [['添加','add']]);
+                //在detail页查询会跳转到list标签页
+                table.postSearch(function(searchData){
+                    if(userForm.getCurrentTab("name")==="detail"){
+                        userForm.gotoTab("list");
+                    }
+                });
+                table.postReset(function(searchData){
+                    if(userForm.getCurrentTab("name")==="detail"){
+                        userForm.gotoTab("list");
+                    }
+                });
+                //处理逻辑
+                //单个item修改
+                $("#userTable").on('click.zui','.operations>span[data-op=modify]',function(){
+                    var id = $(this).parent().data("id");
+                    userForm.retrieve(id+".json").done(function(){
+                        zui.pushInHistory(zui.buildPath("/user/"+id));
+                        userForm.gotoTab("detail");
+                    });
+                });
+
+                //删除
+                $("#userTable").on('click.zui','.operations>span[   data-op=remove]',function(){
+                    var id = $(this).parent().data("id");
+                    var username = table.getRowByID(id).data().username;
+                    zui.confirm("请确认","确定要删除用户 "+username+" ？").done(function(){
+                                var result = userForm.remove(id);
+                                if(!!result){
+                                    result.done(function(data){
+                                        userForm.resetForm(null,true);
+                                        table.refresh();
+                                    });
+                                }
+                            });
+                });
+                //锁定
+                $("#userTable").on('click.zui','.operations>span[data-op=lock]',function(){
+                    var btn = $(this);
+                    var id = $(this).parent().data("id");
+                    zui.communicate("lock",{id:id}).done(function(){
+                        zui.processed(true,"锁定成功");
+                        var cell = table.getCellByIdAndColumnName(id,"locked");
+                        cell.node().innerHTML = "是";
+                        btn.hide().prev("span").show();
+                    });
+                });
+                //解锁
+                $("#userTable").on('click.zui','.operations>span[data-op=unlock]',function(){
+                    var btn = $(this);
+                    var id = $(this).parent().data("id");
+                    zui.communicate("unlock",{id:id}).done(function(){
+                        zui.processed(true,"解锁成功");
+                        var cell = table.getCellByIdAndColumnName(id,"locked");
+                        cell.node().innerHTML = "否";
+                        btn.hide().next("span").show();
+                    }).fail(function(){
+                        table.refresh();
+                    });
+                });
+                //重置密码
+                $("#userTable").on('click.zui','.operations>span[data-op=resetPass]',function(){
+                    var id = $(this).parent().data("id");
+                    zui.communicate("resetPass",{id:id}).done(function(data){
+                        if(!!data&&!!data.repass){
+                            zui.processed(true,"密码重置为"+data.repass);
+                        }else{
+                            zui.processed(true,"密码已重置");
+                        }
+                    });
+                });
+                //添加
+                table.addOperationListener("add",function(){
+                    userForm.gotoTab("detail");
+                    userForm.resetForm(false,true,{"locked":"false"});
+                });
+                return table;
+            }
+        }
+    });
+</script>

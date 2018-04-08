@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>欢迎登录后台管理系统</title>
+<link href="${RES}/old/css/style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript" src="${RES}/old/js/jquery.js"></script>
+
+</head>
+
+<body>
+
+<div class="logintop">    
+    <span>XXXX单位 政府</span>
+    <ul>
+    <li><a href="#">帮助</a></li>
+    <li><a href="#">关于</a></li>
+    </ul>    
+    </div>
+    
+    <div class="loginbody">
+    
+    <span class="systemlogo"></span> 
+       
+    <div class="loginbox">
+    <div class="login-error"><i class="warning-icon"></i>出错提示 平时没有</div>
+    <ul>
+    <li><input name="" type="text" class="loginuser" value="admin" onclick="JavaScript:this.value=''"/></li>
+    <li><input name="" type="text" class="loginpwd" value="密码" onclick="JavaScript:this.value=''"/></li>
+    <li><input name="" type="button" class="loginbtn" value="登录"  onclick="javascript:window.location='main.zhtml'"  /><label><input name="" type="checkbox" value="" checked="checked" />记住密码</label><label><a href="#">忘记密码？</a></label></li>
+    </ul>
+    
+    
+    </div>
+    
+    </div>
+    
+    
+    
+    <div class="loginbm">版权所有  &copy;2015  <a href="http://www.uimaker.com">undibase corperation</a>  使用模板</div>
+	
+    <script type="text/javascript">
+        $('.loginbox').css({'position':'absolute','left':($(window).width()-692)/2});
+        $(window).resize(function(){
+            $('.loginbox').css({'position':'absolute','left':($(window).width()-692)/2});
+        });
+
+
+        var bg_src="${RES}/old/images/loginbg-car.jpg";
+            $('body').prepend("<img src="+bg_src+" id='background'>");
+            var bgImg = $("#background");
+
+            bgImg.addClass('fullBg');
+
+            function resize() {
+                var winwidth = $(window).width();
+                var winheight = $(window).height();
+
+                bgImg.load(function(){
+                    var imgwidth = bgImg.width();
+                    var imgheight = bgImg.height();
+
+                    var widthratio = winwidth/imgwidth;
+                    var heightratio = winheight/imgheight;
+
+                    var widthdiff = heightratio*imgwidth;
+                    var heightdiff = widthratio*imgheight;
+
+                    if(heightdiff>winheight) {
+                        bgImg.css({
+                            width: winwidth+'px',
+                            height: heightdiff+'px'
+                        });
+                    } else {
+                        bgImg.css({
+                            width: widthdiff+'px',
+                            height: winheight+'px'
+                        });
+                    }
+                });
+                $('#loginFrame').css({'margin-top':(winheight-$('.footer').height())/2-$('#loginFrame').height()/2
+                    ,'margin-left':winwidth/2-320});
+                if($("#loginForm").find(".form-group").size()==3){
+                    $("#loginForm").css('margin-top','10px');
+                    $("#loginForm").find(".form-group").addClass("form-group-sm");
+                }else{
+                    $("#loginForm").css('margin-top','20px');
+                }
+            }
+            $(window).resize(resize).trigger("resize");
+    </script>
+</body>
+
+</html>
